@@ -17,6 +17,7 @@ export default function News(props) {
     const updateNews = async () => {
         props.setProgress(10)
         const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page}&pageSize=${props.pageSize}`;
+
         setLoader(true)
         let data = await fetch(url);
         props.setProgress(30)
@@ -30,6 +31,7 @@ export default function News(props) {
     }
     const fetchMoreData = async () => {
         const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page + 1}&pageSize=${props.pageSize}`;
+
         setPage(page + 1)
         setLoader(true)
         let data = await fetch(url);
