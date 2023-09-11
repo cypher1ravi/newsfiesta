@@ -16,8 +16,9 @@ export default function News(props) {
     }
     const updateNews = async () => {
         props.setProgress(10)
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page}&pageSize=${props.pageSize}`;
-        setLoader(true)
+        // const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page}&pageSize=${props.pageSize}`;
+        // setLoader(true)
+        const url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
         let data = await fetch(url);
         props.setProgress(30)
         let parseData = await data.json();
