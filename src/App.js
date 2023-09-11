@@ -14,7 +14,6 @@ function App() {
       // onLoaderFinished={() => setProgress(0)}
       />
       <Navbar />
-       <News setProgress={setProgress} key="general" pageSize={12} country='in' category='general' />
       <Routes>
         <Route path='/' element={<News setProgress={setProgress} key="general" pageSize={12} country='in' category='general' />} />
         <Route path='/sports' element={<News setProgress={setProgress} key="sports" pageSize={12} country='in' category='sports' />} />
