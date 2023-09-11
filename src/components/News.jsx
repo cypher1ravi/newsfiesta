@@ -30,7 +30,9 @@ export default function News(props) {
 
     }
     const fetchMoreData = async () => {
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page + 1}&pageSize=${props.pageSize}`;
+              const url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
+
+        // const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page + 1}&pageSize=${props.pageSize}`;
         setPage(page + 1)
         setLoader(true)
         let data = await fetch(url);
