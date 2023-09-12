@@ -29,17 +29,17 @@ export default function News(props) {
         setLoader(false)
 
     }
-    const fetchMoreData = async () => {
-        const url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
+    // const fetchMoreData = async () => {
+    //     const url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
 
-        setPage(page + 1)
-        setLoader(true)
-        let data = await fetch(url);
-        let parseData = await data.json();
-        setArticles(articles.concat(parseData.articles))
-        setTotalResults(parseData.totalResults)
-        setLoader(false)
-    }
+    //     setPage(page + 1)
+    //     setLoader(true)
+    //     let data = await fetch(url);
+    //     let parseData = await data.json();
+    //     setArticles(articles.concat(parseData.articles))
+    //     setTotalResults(parseData.totalResults)
+    //     setLoader(false)
+    // }
     useEffect(() => {
         document.title = `${capitalizeFirstletter(props.category)} - News fiesta`
         updateNews();
@@ -56,7 +56,7 @@ export default function News(props) {
                 <InfiniteScroll
                     dataLength={articles.length}
                     hasMore={articles.length !== totalResults}
-                    next={fetchMoreData}
+                    // next={fetchMoreData}
                     loader={loader && <Spinner />}
 
                 >
