@@ -39,6 +39,8 @@ export default function News(props) {
         } catch (error) {
             setErrorMessage('An error occurred while fetching news: ' + error.message);
             setLoader(false);
+            props.setProgress(100);
+
         }
     };
 
@@ -63,7 +65,7 @@ export default function News(props) {
             {loader && <Spinner />}
             {errorMessage && (
                 <div className="error-message">
-                    {errorMessage}
+                  <h6 className="text-center text-danger my-2"> {errorMessage}</h6> 
                 </div>
             )}
 
