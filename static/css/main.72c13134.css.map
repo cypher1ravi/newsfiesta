@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.72c13134.css","mappings":"AAAA,KAEE,wBAAyB,CADzB,QAGF,CACA,QACE,wBACF","sources":["index.css"],"sourcesContent":["body {\r\n  margin: 0;\r\n  background-color: #31465a;\r\n  \r\n}\r\n.navbar{\r\n  background-color: #98c2eb;\r\n}\r\n"],"names":[],"sourceRoot":""}
