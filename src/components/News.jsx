@@ -10,27 +10,40 @@ export default function News(props) {
     const [loader, setLoader] = useState(false)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState(0)
+    const [errorMessage, setErrorMessage] = useState(null);
+
 
     const capitalizeFirstletter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1)
     }
     const updateNews = async () => {
-        props.setProgress(10)
-        const url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
-        setLoader(true)
-        let data = await fetch(url);
-        props.setProgress(30)
-        let parseData = await data.json();
-        props.setProgress(70)
-        setArticles(parseData.articles)
-        setTotalResults(parseData.totalResults)
-        props.setProgress(100)
-        setLoader(false)
+        try {
+            props.setProgress(10);
+            const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page}&pageSize=${props.pageSize}`;
+            setLoader(true);
 
-    }
+            let data = await fetch(url);
+            if (!data.ok) {
+                throw new Error('Page not found');
+
+            }
+            props.setProgress(30);
+
+            let parseData = await data.json();
+            props.setProgress(70);
+            setArticles(parseData.articles);
+            setTotalResults(parseData.totalResults);
+            props.setProgress(100);
+            setLoader(false);
+            setErrorMessage(null);
+        } catch (error) {
+            setErrorMessage('An error occurred while fetching news: ' + error.message);
+            setLoader(false);
+        }
+    };
+
     const fetchMoreData = async () => {
-        const url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
-
+        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page + 1}&pageSize=${props.pageSize}`;
         setPage(page + 1)
         setLoader(true)
         let data = await fetch(url);
@@ -42,12 +55,17 @@ export default function News(props) {
     useEffect(() => {
         document.title = `${capitalizeFirstletter(props.category)} - News fiesta`
         updateNews();
+        // eslint-disable-next-line
     }, [])
     return (
         <>
             <h2 className="text-center text-warning my-2">Top {capitalizeFirstletter(props.category)} Headlines- News fiesta </h2>
-
             {loader && <Spinner />}
+            {errorMessage && (
+                <div className="error-message">
+                    {errorMessage}
+                </div>
+            )}
 
 
             <div className="album pt-2" >
@@ -57,6 +75,7 @@ export default function News(props) {
                     hasMore={articles.length !== totalResults}
                     next={fetchMoreData}
                     loader={loader && <Spinner />}
+
 
                 >
                     <div className="container pt-3">
