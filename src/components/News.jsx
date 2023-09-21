@@ -19,7 +19,9 @@ export default function News(props) {
     const updateNews = async () => {
         try {
             props.setProgress(10);
-            const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page}&pageSize=${props.pageSize}`;
+            // this is valid for only local host
+            // const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page}&pageSize=${props.pageSize}`;
+            const url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/${props.country}.json`
             setLoader(true);
 
             let data = await fetch(url);
@@ -45,14 +47,15 @@ export default function News(props) {
     };
 
     const fetchMoreData = async () => {
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page + 1}&pageSize=${props.pageSize}`;
-        setPage(page + 1)
-        setLoader(true)
-        let data = await fetch(url);
-        let parseData = await data.json();
-        setArticles(articles.concat(parseData.articles))
-        setTotalResults(parseData.totalResults)
-        setLoader(false)
+        // const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=02fcaf7b762b4446ba95145a048d7405&page=${page + 1}&pageSize=${props.pageSize}`;
+
+        // setPage(page + 1)
+        // setLoader(true)
+        // let data = await fetch(url);
+        // let parseData = await data.json();
+        // setArticles(articles.concat(parseData.articles))
+        // setTotalResults(parseData.totalResults)
+        // setLoader(false)
     }
     useEffect(() => {
         document.title = `${capitalizeFirstletter(props.category)} - News fiesta`
@@ -65,7 +68,7 @@ export default function News(props) {
             {loader && <Spinner />}
             {errorMessage && (
                 <div className="error-message">
-                  <h6 className="text-center text-danger my-2"> {errorMessage}</h6> 
+                    <h6 className="text-center text-danger my-2"> {errorMessage}</h6>
                 </div>
             )}
 
